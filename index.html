@@ -1,131 +1,154 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH Mixer Selector</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b2c2c;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: #123;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-weight: bold;
+        }
+
+        .card:hover {
+            background: #1f4d4d;
+            border-color: #2dd4bf;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(45, 212, 191, 0.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .modal-content p {
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .close {
+            background: #2dd4bf;
+            color: #0b2c2c;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover {
+            background: #1abc9c;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1">&lt;title&gt;TH Mixer Selector&lt;/title&gt;</p>
-<p class="p1">&lt;style&gt;</p>
-<p class="p1">body {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-family: Arial, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: #0b2c2c;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">h1 {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 20px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.grid {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>grid-template-columns: repeat(3, 1fr);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>gap: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 20px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.card {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: #123;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>transition: 0.3s;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.card:hover {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: #1f4d4d;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.modal {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display: none;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>position: fixed;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>top: 0; left: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>height: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: rgba(0,0,0,0.8);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.modal-content {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: #111;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>max-width: 400px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.close {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin-top: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color: #aaa;</p>
-<p class="p1">}</p>
-<p class="p1">&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h1&gt;TH Mixer Selector&lt;/h1&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="grid"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card" onclick="openModal('Indian Tonic','Gin, Vodka, Tequila')"&gt;Indian Tonic&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card" onclick="openModal('Botanical Tonic','Gin, Vodka')"&gt;Botanical Tonic&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card" onclick="openModal('Dry Tonic','Gin, Vodka, Tequila')"&gt;Dry Tonic&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card" onclick="openModal('Cherry Blossom','Vodka, Gin, Mezcal')"&gt;Cherry Blossom&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card" onclick="openModal('Bitter Lemon','Vodka, Tequila, Gin, White Rum')"&gt;Bitter Lemon&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card" onclick="openModal('Wild Berry Tonic','Gin, Vodka, Tequila, Calvados, Rosé Wine')"&gt;Wild Berry Tonic&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card" onclick="openModal('Spicy Ginger','Gin, Vodka, Tequila, Rum')"&gt;Spicy Ginger&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card" onclick="openModal('Ginger Ale','Cognac, Whiskey, Rum, Calvados')"&gt;Ginger Ale&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card" onclick="openModal('Soda Water','Gin, Vodka')"&gt;Soda Water&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card" onclick="openModal('Mystic Mango','Gin, Vodka, Tequila, Calvados, Cognac')"&gt;Mystic Mango&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="card" onclick="openModal('Pink Grapefruit','Tequila, Gin, Vodka, Rosé Wine')"&gt;Pink Grapefruit&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div id="modal" class="modal" onclick="closeModal()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="modal-content" onclick="event.stopPropagation()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 id="title"&gt;&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p id="content"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="close" onclick="closeModal()"&gt;Close&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p1">function openModal(name, alcohol) {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("title").innerText = name;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("content").innerText = "Best with: " + alcohol;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("modal").style.display = "flex";</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function closeModal() {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("modal").style.display = "none";</p>
-<p class="p1">}</p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <h1>TH Mixer Selector</h1>
+
+    <div class="grid">
+        <div class="card" onclick="openModal('Indian Tonic', 'Gin, Vodka, Tequila')">Indian Tonic</div>
+        <div class="card" onclick="openModal('Botanical Tonic', 'Gin, Vodka')">Botanical Tonic</div>
+        <div class="card" onclick="openModal('Dry Tonic', 'Gin, Vodka, Tequila')">Dry Tonic</div>
+        <div class="card" onclick="openModal('Cherry Blossom', 'Vodka, Gin, Mezcal')">Cherry Blossom</div>
+        <div class="card" onclick="openModal('Bitter Lemon', 'Vodka, Tequila, Gin, White Rum')">Bitter Lemon</div>
+        <div class="card" onclick="openModal('Wild Berry Tonic', 'Gin, Vodka, Tequila, Calvados, Rosé Wine')">Wild Berry Tonic</div>
+        <div class="card" onclick="openModal('Spicy Ginger', 'Gin, Vodka, Tequila, Rum')">Spicy Ginger</div>
+        <div class="card" onclick="openModal('Ginger Ale', 'Cognac, Whiskey, Rum, Calvados')">Ginger Ale</div>
+        <div class="card" onclick="openModal('Soda Water', 'Gin, Vodka')">Soda Water</div>
+        <div class="card" onclick="openModal('Mystic Mango', 'Gin, Vodka, Tequila, Calvados, Cognac')">Mystic Mango</div>
+        <div class="card" onclick="openModal('Pink Grapefruit', 'Tequila, Gin, Vodka, Rosé Wine')">Pink Grapefruit</div>
+    </div>
+
+    <div id="modal" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2 id="title"></h2>
+            <p id="content"></p>
+            <button class="close" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal(name, alcohol) {
+            document.getElementById("title").innerText = name;
+            document.getElementById("content").innerText = "Best with: " + alcohol;
+            document.getElementById("modal").classList.add("active");
+        }
+
+        function closeModal() {
+            document.getElementById("modal").classList.remove("active");
+        }
+
+        // Close modal on Escape key
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") closeModal();
+        });
+    </script>
 </body>
 </html>
