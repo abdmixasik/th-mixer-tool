@@ -41,6 +41,18 @@
             transition: all 0.3s ease;
             border: 2px solid transparent;
             font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 180px;
+        }
+
+        .card img {
+            max-width: 100%;
+            max-height: 150px;
+            object-fit: contain;
+            margin-bottom: 10px;
         }
 
         .card:hover {
@@ -81,6 +93,13 @@
             font-size: 24px;
         }
 
+        .modal-content img {
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
         .modal-content p {
             margin-bottom: 30px;
             font-size: 16px;
@@ -113,7 +132,10 @@
     <h1>TH Mixer Selector</h1>
 
     <div class="grid">
-        <div class="card" onclick="openModal('Indian Tonic', 'Gin, Vodka, Tequila')">Indian Tonic</div>
+        <div class="card" onclick="openModal('Indian Tonic', 'Gin, Vodka, Tequila', 'https://your-bottle-image-url.jpg')">
+            <img src="https://your-bottle-image-url.jpg" alt="Indian Tonic Bottle">
+            <span>Indian Tonic</span>
+        </div>
         <div class="card" onclick="openModal('Botanical Tonic', 'Gin, Vodka')">Botanical Tonic</div>
         <div class="card" onclick="openModal('Dry Tonic', 'Gin, Vodka, Tequila')">Dry Tonic</div>
         <div class="card" onclick="openModal('Cherry Blossom', 'Vodka, Gin, Mezcal')">Cherry Blossom</div>
@@ -129,15 +151,25 @@
     <div id="modal" class="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <h2 id="title"></h2>
+            <img id="modalImage" src="" alt="Product Image" style="display:none;">
             <p id="content"></p>
             <button class="close" onclick="closeModal()">Close</button>
         </div>
     </div>
 
     <script>
-        function openModal(name, alcohol) {
+        function openModal(name, alcohol, imageUrl = null) {
             document.getElementById("title").innerText = name;
             document.getElementById("content").innerText = "Best with: " + alcohol;
+            
+            const modalImage = document.getElementById("modalImage");
+            if (imageUrl) {
+                modalImage.src = imageUrl;
+                modalImage.style.display = "block";
+            } else {
+                modalImage.style.display = "none";
+            }
+            
             document.getElementById("modal").classList.add("active");
         }
 
